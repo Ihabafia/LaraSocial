@@ -23,7 +23,6 @@ jobs:
         with:
           php-version: 8.4
           tools: composer:v2
-          extensions: sqlite3
           coverage: xdebug
 
       - name: Setup Node
@@ -35,7 +34,7 @@ jobs:
       - name: Install Node Dependencies
         run: npm ci
 
-      - name: Install PHP Dependencies
+      - name: Install Dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Copy Environment File
@@ -50,9 +49,5 @@ jobs:
       - name: Build Assets
         run: npm run build
 
-      - name: Run Tests
-        env:
-          APP_ENV: testing
-          DB_CONNECTION: sqlite
-          DB_DATABASE: ':memory:'
+      - name: Tests
         run: ./vendor/bin/pest
